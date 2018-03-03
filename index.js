@@ -14,7 +14,8 @@ mongoose.connect("mongodb://localhost:27017/node-blog");
 var postSchema = new mongoose.Schema({
     title: String,
     image: String,
-    content: String
+    content: String,
+    resume: String
 });
 
 var Post = mongoose.model("Post", postSchema);
@@ -50,10 +51,12 @@ app.get("/post/:id", (req, res) => {
 
 app.post("/post", (req,res) => {
     const { title, image, content } = req.body;
+    const resume = content.substring(0,250);
     const userPost = {
         title: title,
         image: image,
-        content: content
+        content: content,
+        resume: resume
     }
     Post.create(userPost, (err, newPost) => {
         if(err){

@@ -17,24 +17,24 @@
     <div class="column right-side is-half-desktop is-full-mobile">       
         <section class="hero is-fullheight is-default is-bold">
             <div class="hero-body">
+                <div class="container">
 
                 <% posts.forEach(function(post){ %>
                     
-                    <div class="container">
                         <div class="column is-full-desktop">
                             <h1 class="blog-timestamp">
                             2 days ago
                             </h1>
-                            <h1 class="blog-title">
+                            <h1 class="title is-5">
                             <%= post.title %>
                             </h1>
                             <h2 class="blog-summary">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ornare malesuada dolor ut dictum. Pellentesque eget orci nisl. Vivamus sit amet ullamcorper elit. Donec mattis scelerisque dui sed convallis.
+                            <%= post.resume %>
                             </h2>
                         </div>
-                    </div>
-
-                <% }) %>
+                        
+                    <% }) %>
+                </div>
 
             </div>
 
