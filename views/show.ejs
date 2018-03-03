@@ -1,0 +1,43 @@
+<% include partials/header.ejs %>
+
+<section class="articles">
+    <div class="column is-8 is-offset-2">
+
+        <!-- START PROMO BLOCK -->
+        <% if(post.image){ %>
+        <section class="hero is-danger is-bold is-small promo-block">
+            <div class="hero-body">
+                <div class="container">
+                    <img src="<%= post.image %>" />
+                </div>
+            </div>
+        </section>
+        <% } %>
+        <!-- END PROMO BLOCK -->
+
+        <!-- START ARTICLE -->
+        <div class="card article">
+            <div class="card-content">
+                <div class="media">
+                <div class="media-center">
+                    <img src="https://scontent.fmex2-1.fna.fbcdn.net/v/t1.0-9/22089073_1504816602918675_3079149998137686885_n.jpg?oh=57dd17a92cd6761c1eb55a72dc7ede6a&oe=5B4D093D" class="author-image" alt="Placeholder image">
+                </div>
+                <div class="media-content has-text-centered">
+                    <p class="title article-title"><%= post.title %></p>
+                    <p class="subtitle is-6 article-subtitle">
+                        <a href="#">@d</a> on October 7, 2017
+                    </p>
+                </div>
+                </div>
+
+                <div class="content article-body">
+                    <%= post.content %>
+                </div>
+            </div>
+        </div>
+        <!-- END ARTICLE -->
+
+    </div>
+</section>
+
+<% include partials/footer.ejs %>

@@ -40,11 +40,11 @@ app.get("/post/new", (req, res) => {
 });
 
 app.get("/post/:id", (req, res) => {
-    Post.findById(req.params.id, (err, postFound) => {
+    Post.findById(req.params.id, (err, post) => {
         if (err) {
             console.log("There was an error", err)
         } else {
-            res.render("show.ejs", { postFound: postFound });
+            res.render("show.ejs", { post: post });
         }
     })
 })

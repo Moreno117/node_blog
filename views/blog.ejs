@@ -11,8 +11,6 @@
             </div>
         </section>
     </div>
-
-    <!-- <% console.log("your post", posts) %> -->
     
     <div class="column right-side is-half-desktop is-full-mobile">       
         <section class="hero is-fullheight is-default is-bold">
@@ -31,6 +29,7 @@
                             <h2 class="blog-summary">
                             <%= post.resume %>
                             </h2>
+                            <a href="/post/<%= post._id %>">Read more...</a>
                         </div>
                         
                     <% }) %>
