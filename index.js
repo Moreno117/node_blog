@@ -2,7 +2,9 @@ var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
+var _ = require("lodash");
 
+app.locals.htmlParsed = html => _.escape(html).replace(/\n/g, '<br>');
 // Use static assets
 app.use(express.static("public"));
 // Setting up Body Parser
