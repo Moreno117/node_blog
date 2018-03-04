@@ -15,15 +15,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Connect local DB
 mongoose.connect("mongodb://localhost:27017/node-blog");
 
-// var postSchema = new mongoose.Schema({
-//     title: String,
-//     image: String,
-//     content: String,
-//     resume: String
-// });
-
-// var Post = mongoose.model("Post", postSchema);
-
 
 app.get('/', (req, res) => {
     res.render('landing.ejs');
