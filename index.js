@@ -3,7 +3,9 @@ var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 var _ = require("lodash");
+var Post = require("./models/post");
 
+// Helper for parse HTML
 app.locals.htmlParsed = html => _.escape(html).replace(/\n/g, '<br>');
 // Use static assets
 app.use(express.static("public"));
@@ -13,14 +15,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Connect local DB
 mongoose.connect("mongodb://localhost:27017/node-blog");
 
-var postSchema = new mongoose.Schema({
-    title: String,
-    image: String,
-    content: String,
-    resume: String
-});
+// var postSchema = new mongoose.Schema({
+//     title: String,
+//     image: String,
+//     content: String,
+//     resume: String
+// });
 
-var Post = mongoose.model("Post", postSchema);
+// var Post = mongoose.model("Post", postSchema);
 
 
 app.get('/', (req, res) => {
@@ -32,13 +34,13 @@ app.get('/blog', (req, res) => {
         if(err){
             console.log(err);
         } else {
-            res.render('blog.ejs', { posts: posts });
+            res.render('blog/blog.ejs', { posts: posts });
         }
     });
 });
 
 app.get("/post/new", (req, res) => {
-    res.render("new.ejs");
+    res.render("blog/new.ejs");
 });
 
 app.get("/post/:id", (req, res) => {
@@ -46,7 +48,7 @@ app.get("/post/:id", (req, res) => {
         if (err) {
             console.log("There was an error", err)
         } else {
-            res.render("show.ejs", { post: post });
+            res.render("blog/show.ejs", { post: post });
         }
     })
 })
