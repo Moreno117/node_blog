@@ -8,6 +8,7 @@ var _ = require("lodash");
 var User = require("./models/user");
 var Post = require("./models/post");
 
+var authRoutes = require("./routes/auth");
 
 // Helper for parse HTML
 app.locals.htmlParsed = html => _.escape(html).replace(/\n/g, '<br>');
@@ -37,9 +38,7 @@ app.use(function(req, res, next){
     next();
 })
 
-app.get('/', (req, res) => {
-    res.render('landing.ejs');
-});
+app.use("/", authRoutes)
 
 app.get('/blog', (req, res) => {
     Post.find({}, (err, posts) => {
@@ -78,52 +77,10 @@ app.post("/post", (req,res) => {
         if(err){
             console.log(err);
         }else {
-            res.redirect("blog/blog.ejs")
+            res.redirect("/blog")
         }
     });
 });
-
-// =============
-// Auth routes
-// =============
-app.get("/more/user", (req, res) => {
-    res.render("auth/register.ejs")
-});
-
-app.post("/more/user", (req,res) => {
-    const newUser = new User({ username: req.body.username });
-    User.register(newUser, req.body.password, (err, user) => {
-        if(err){
-            console.log("Error auth ", err);
-            return res.render("auth/register.ejs");
-        } else {
-            passport.authenticate("local")(req,res,() => {
-                res.redirect("/blog")
-            })
-        }
-    })
-});
-
-app.get("/login", (req,res) => {
-    res.render("auth/login.ejs");
-})
-
-app.post("/login", passport.authenticate("local", 
-{ successRedirect: "/blog", failureRedirect: "/login" }),
-(req,res) => {});
-
-app.get("/logout", (req,res) => {
-    req.logout();
-    res.redirect("/");
-});
-
-// Middleware
-function isLoggedIn(req, res, next){
-    if(req.isAuthenticated()){
-        return next();
-    }
-    res.redirect("/login");
-}
 
 app.listen(3000, () => {
     console.log('App listen on port 3000');
