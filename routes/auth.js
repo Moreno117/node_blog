@@ -2,9 +2,9 @@ var express = require("express"),
     passport = require("passport"),
     User = require("../models/user");
 
-var router = express.Router();
+const router = express.Router();
 
-// Landing Pages
+// Landing Page
 router.get('/', (req, res) => {
     res.render('landing.ejs');
 });

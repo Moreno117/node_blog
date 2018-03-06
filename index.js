@@ -8,7 +8,8 @@ var _ = require("lodash");
 var User = require("./models/user");
 var Post = require("./models/post");
 
-var authRoutes = require("./routes/auth");
+var authRoutes = require("./routes/auth"),
+    postRoutes = require("./routes/posts");
 
 // Helper for parse HTML
 app.locals.htmlParsed = html => _.escape(html).replace(/\n/g, '<br>');
@@ -38,7 +39,8 @@ app.use(function(req, res, next){
     next();
 })
 
-app.use("/", authRoutes)
+app.use("/", authRoutes);
+app.use("/post", postRoutes);
 
 app.get('/blog', (req, res) => {
     Post.find({}, (err, posts) => {
@@ -46,38 +48,6 @@ app.get('/blog', (req, res) => {
             console.log(err);
         } else {
             res.render('blog/blog.ejs', { posts: posts });
-        }
-    });
-});
-
-app.get("/post/new", (req, res) => {
-    res.render("blog/new.ejs");
-});
-
-app.get("/post/:id", (req, res) => {
-    Post.findById(req.params.id, (err, post) => {
-        if (err) {
-            console.log("There was an error", err)
-        } else {
-            res.render("blog/show.ejs", { post: post });
-        }
-    })
-})
-
-app.post("/post", (req,res) => {
-    const { title, image, content } = req.body;
-    const resume = content.substring(0,250);
-    const userPost = {
-        title: title,
-        image: image,
-        content: content,
-        resume: resume
-    }
-    Post.create(userPost, (err, newPost) => {
-        if(err){
-            console.log(err);
-        }else {
-            res.redirect("/blog")
         }
     });
 });
