@@ -3,7 +3,7 @@ var express = require("express");
 
 const router = express.Router();
 
-router.get("/new", (req, res) => {
+router.get("/new", isLoggedIn, (req, res) => {
     res.render("blog/new.ejs");
 });
 
@@ -17,7 +17,7 @@ router.get("/:id", (req, res) => {
     })
 })
 
-router.post("/", (req, res) => {
+router.post("/", isLoggedIn, (req, res) => {
     const { title, image, content } = req.body;
     const resume = content.substring(0, 250);
     const userPost = {
@@ -34,5 +34,13 @@ router.post("/", (req, res) => {
         }
     });
 });
+
+// Middleware
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect("/login");
+}
 
 module.exports = router;
