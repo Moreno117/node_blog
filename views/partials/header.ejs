@@ -32,20 +32,22 @@
                 </span>
                 </div>
                 <div id="navbarMenu" class="navbar-menu">
-                <div class="navbar-end">            
-                    <a href="/blog" class="navbar-item">
-                    Blog
-                    </a>
-                    <a class="navbar-item">
-                    Shots
-                    </a>
-                    <a class="navbar-item">
-                    Social
-                    </a>
-                    <a class="navbar-item">
-                    Help
-                    </a>
-                </div>
+                    <div class="navbar-end">            
+                        <a href="/blog" class="navbar-item">
+                            Blog
+                        </a>
+                        <a class="navbar-item">
+                            Books
+                        </a>
+                        <a class="navbar-item">
+                            Social
+                        </a>
+                        <% if(currentUser){ %>  
+                             <a  href="/logout"class="navbar-item">
+                                Log out
+                             </a>
+                        <% } %>
+                    </div>
                 </div>
             </div>
         </nav>
