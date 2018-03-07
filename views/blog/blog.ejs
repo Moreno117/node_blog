@@ -18,14 +18,29 @@
                 <div class="container">
 
                 <% posts.forEach(function(post){ %>
-                    
+                
                         <div class="column is-full-desktop">
                             <h1 class="blog-timestamp">
                             2 days ago
                             </h1>
                             <h1 class="title is-5">
-                            <%= post.title %>
+                                <%= post.title %>
+                                <% if(currentUser){ %>
+                                    <a href="/post/<%= post._id %>/edit" class="button action-buttons-modified">
+                                        <span class="icon is-small">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                    </a>
+                                    <form class="form-delete-modified" action="/post/<%= post._id %>?_method=DELETE" method="POST">
+                                        <button class="button action-buttons-modified">
+                                            <span class="icon is-small">
+                                                <i class="fa fa-trash"></i>
+                                            </span>
+                                        </button> 
+                                    </form>                               
+                                <% } %>
                             </h1>
+
                             <h2 class="blog-summary">
                             <%= post.resume %>
                             </h2>

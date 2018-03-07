@@ -60,6 +60,16 @@ router.put("/:id", isLoggedIn, (req, res) => {
     });
 });
 
+router.delete("/:id", isLoggedIn, (req,res) => {
+    Post.findByIdAndRemove(req.params.id, (error) => {
+        if(error){
+            res.redirect("/");
+        } else {
+            res.redirect("/blog");
+        };
+    });
+});
+
 // Middleware
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
