@@ -1,12 +1,13 @@
-var express = require("express");
-var app = express();
-var bodyParser = require("body-parser");
-var mongoose = require("mongoose");
-var passport = require("passport");
-var LocalStrategy = require("passport-local");
-var _ = require("lodash");
-var User = require("./models/user");
-var Post = require("./models/post");
+var express = require("express"),
+    app = express(),
+    bodyParser = require("body-parser"),
+    mongoose = require("mongoose"),
+    methodOverride = require("method-override"),
+    passport = require("passport"),
+    LocalStrategy = require("passport-local"),
+    _ = require("lodash"),
+    User = require("./models/user"),
+    Post = require("./models/post");
 
 var authRoutes = require("./routes/auth"),
     postRoutes = require("./routes/posts");
@@ -18,6 +19,8 @@ app.use(express.static("public"));
 // Setting up Body Parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+// Setting up UPDATE method-override
+app.use(methodOverride("_method"));
 // Connect local DB
 mongoose.connect("mongodb://localhost:27017/node-blog");
 

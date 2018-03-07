@@ -35,6 +35,31 @@ router.post("/", isLoggedIn, (req, res) => {
     });
 });
 
+router.get("/:id/edit", isLoggedIn, (req,res) => {
+    Post.findById(req.params.id, (error, postFound) => {
+        res.render("blog/edit.ejs", { post:postFound });
+    });
+});
+
+router.put("/:id", isLoggedIn, (req, res) => {
+    const { title, image, content } = req.body;
+    const resume = content.substring(0 ,250);
+    const userPostUpdated = {
+        title: title,
+        image: image,
+        content: content,
+        resume: resume
+    };
+    Post.findByIdAndUpdate(req.params.id, userPostUpdated, (error, postUpdated) => {
+        if(error){
+            console.log("There was an error ", error);
+            res.redirect("/blog");
+        } else {
+            res.redirect(`/post/${postUpdated._id}`);
+        }
+    });
+});
+
 // Middleware
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
