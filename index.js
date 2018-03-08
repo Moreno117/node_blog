@@ -10,7 +10,8 @@ var express = require("express"),
     Post = require("./models/post");
 
 var authRoutes = require("./routes/auth"),
-    postRoutes = require("./routes/posts");
+    postRoutes = require("./routes/posts"),
+    socialRoutes = require("./routes/social");
 
 // Helper for parse HTML
 app.locals.htmlParsed = html => _.escape(html).replace(/\n/g, '<br>');
@@ -44,6 +45,7 @@ app.use(function(req, res, next){
 
 app.use("/", authRoutes);
 app.use("/post", postRoutes);
+app.use("/social", socialRoutes);
 
 app.get('/blog', (req, res) => {
     Post.find({}, (err, posts) => {
