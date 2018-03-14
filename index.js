@@ -21,8 +21,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // Setting up UPDATE method-override
 app.use(methodOverride("_method"));
+
 // Connect local DB
-mongoose.connect("mongodb://localhost:27017/node-blog");
+// mongoose.connect("mongodb://localhost:27017/node-blog");
+mongoose.connect("mongodb://cmoreno:webdeveloper@ds239638.mlab.com:39638/blog");
+
 
 // Passport configuration
 app.use(require("express-session")({
