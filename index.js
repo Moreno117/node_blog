@@ -23,9 +23,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
 // Connect local DB
-// mongoose.connect("mongodb://localhost:27017/node-blog");
-mongoose.connect("mongodb://cmoreno:webdeveloper@ds239638.mlab.com:39638/blog");
-
+var url = process.env.DATABASEURL || "mongodb://localhost:27017/node-blog";
+mongoose.connect(url);
 
 // Passport configuration
 app.use(require("express-session")({
