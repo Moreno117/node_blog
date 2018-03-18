@@ -1,4 +1,6 @@
-var express = require("express"),
+require('dotenv').config();
+
+const express = require("express"),
     methodOverride = require("method-override"),
     LocalStrategy = require("passport-local"),
     bodyParser = require("body-parser"),
@@ -10,11 +12,11 @@ var express = require("express"),
     _ = require("lodash"),
     app = express();
 
-var authRoutes = require("./routes/auth"),
+const authRoutes = require("./routes/auth"),
     postRoutes = require("./routes/posts"),
     socialRoutes = require("./routes/social");
 
-const APIS = require("./utils");
+const APIS = require("./util");
 
 // Helper for parse HTML
 app.locals.htmlParsed = html => _.escape(html).replace(/\n/g, '<br>');
