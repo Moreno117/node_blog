@@ -1,16 +1,19 @@
 var express = require("express"),
-    app = express(),
-    bodyParser = require("body-parser"),
-    mongoose = require("mongoose"),
     methodOverride = require("method-override"),
-    passport = require("passport"),
     LocalStrategy = require("passport-local"),
-    _ = require("lodash"),
+    bodyParser = require("body-parser"),
+    cloudinary = require('cloudinary'),
     User = require("./models/user"),
-    Post = require("./models/post");
+    Post = require("./models/post"),
+    mongoose = require("mongoose"),
+    passport = require("passport"),
+    _ = require("lodash"),
+    app = express();
 
 var authRoutes = require("./routes/auth"),
     postRoutes = require("./routes/posts");
+
+const APIS = require("./utils");
 
 // Helper for parse HTML
 app.locals.htmlParsed = html => _.escape(html).replace(/\n/g, '<br>');
@@ -25,6 +28,9 @@ app.use(methodOverride("_method"));
 // Connect local DB
 var url = process.env.DATABASEURL || "mongodb://localhost:27017/node-blog";
 mongoose.connect(url);
+
+// Setting up cloudinanry
+cloudinary.config(APIS.CLOUDINARY);
 
 // Passport configuration
 app.use(require("express-session")({
