@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 const express = require("express"),
     methodOverride = require("method-override"),
     LocalStrategy = require("passport-local"),

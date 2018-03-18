@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node -r dotenv/config your_script.js index.js",
+    "start_development": "nodemon -r dotenv/config index.js"
   },
   "author": "Carlos Moreno",
   "license": "ISC",
