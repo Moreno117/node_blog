@@ -3,13 +3,30 @@
 <div class="container">
    
     <h1 class="title is-1">New Post</h1>
-    <form action="/post" method="POST">
+    <form action="/post" method="POST" enctype="multipart/form-data">
         
         <div class="field">
             <label class="label">Title</label>
             <div class="control">
                 <input class="input" name="title" type="text" placeholder="Text input">
             </div>
+        </div>
+
+        <div class="file has-name is-fullwidth">
+            <label class="file-label">
+              <input class="file-input" type="file" name="upload">
+              <span class="file-cta">
+                <span class="file-icon">
+                  <i class="fa fa-upload"></i>
+                </span>
+                <span class="file-label">
+                  Choose a file…
+                </span>
+              </span>
+              <span class="file-name">
+                File loaded...
+              </span>
+            </label>
         </div>
 
         <div class="field">

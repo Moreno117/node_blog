@@ -7,7 +7,6 @@ const express = require("express"),
     Post = require("./models/post"),
     mongoose = require("mongoose"),
     passport = require("passport"),
-    multer = require("multer"),
     _ = require("lodash"),
     app = express();
 
@@ -16,7 +15,6 @@ const authRoutes = require("./routes/auth"),
     socialRoutes = require("./routes/social");
 
 const APIS = require("./util");
-const upload = multer({ dest: 'public/uploads' });
 
 // Helper for parse HTML
 app.locals.htmlParsed = html => _.escape(html).replace(/\n/g, '<br>');
@@ -68,17 +66,17 @@ app.get('/blog', (req, res) => {
 });
 
 
-app.get('/upload', (req,res) => {
-    res.render('uploads/images.ejs')
-})
+// app.get('/upload', (req,res) => {
+//     res.render('uploads/images.ejs')
+// })
 
-app.post('/upload', upload.single('upload'), (req,res) => {
-    const { filename } = req.file;
-    cloudinary.uploader.upload(`public/uploads/${filename}`, function(result){
-        console.log('cloud Result --->', result);
-    })    
-    res.redirect('/');
-});
+// app.post('/upload', upload.single('upload'), (req,res) => {
+//     const { filename } = req.file;
+//     cloudinary.uploader.upload(`public/uploads/${filename}`, function(result){
+//         console.log('cloud Result --->', result);
+//     })    
+//     res.redirect('/');
+// });
 
 app.listen(process.env.PORT || 3000, process.env.IP, () => {
     console.log('App listen on port 3000');
