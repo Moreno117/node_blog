@@ -22,8 +22,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // Setting up UPDATE method-override
 app.use(methodOverride("_method"));
+
 // Connect local DB
-mongoose.connect("mongodb://localhost:27017/node-blog");
+var url = process.env.DATABASEURL || "mongodb://localhost:27017/node-blog";
+mongoose.connect(url);
 
 // Passport configuration
 app.use(require("express-session")({
@@ -57,6 +59,6 @@ app.get('/blog', (req, res) => {
     });
 });
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, process.env.IP, () => {
     console.log('App listen on port 3000');
-})
+});
