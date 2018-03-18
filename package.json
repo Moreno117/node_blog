@@ -10,6 +10,7 @@
   "author": "Carlos Moreno",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "body-parser": "^1.18.2",
     "cloudinary": "^1.10.0",
     "ejs": "^2.5.7",

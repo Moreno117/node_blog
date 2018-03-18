@@ -11,7 +11,8 @@ var express = require("express"),
     app = express();
 
 var authRoutes = require("./routes/auth"),
-    postRoutes = require("./routes/posts");
+    postRoutes = require("./routes/posts"),
+    socialRoutes = require("./routes/social");
 
 const APIS = require("./utils");
 
@@ -52,6 +53,7 @@ app.use(function(req, res, next){
 
 app.use("/", authRoutes);
 app.use("/post", postRoutes);
+app.use("/social", socialRoutes);
 
 app.get('/blog', (req, res) => {
     Post.find({}, (err, posts) => {

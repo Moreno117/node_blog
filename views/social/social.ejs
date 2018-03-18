@@ -1,0 +1,49 @@
+<% include ../partials/header.ejs %>
+
+<div class="container">
+    <div class="tile is-ancestor">
+        <div class="tile is-vertical is-12">
+            <div class="tile">
+
+                <% var firsInsta = [instagramData[0], instagramData[1]] %>
+                <div class="tile is-parent is-vertical">
+                    <% firsInsta.forEach(function(insta){ %>
+                        <article class="tile is-child notification">
+                            <p class="subtitle"><%= insta.caption.text %></p>
+                            <figure class="image is-4by3">
+                                <img src="<%= insta.images.standard_resolution.url %>" />
+                            </figure>
+                        </article>
+                    <% }) %>
+                </div>
+
+                <% var secondInsta = [instagramData[2], instagramData[3]] %>
+                <div class="tile is-parent is-vertical">
+                    <% secondInsta.forEach(function(insta){ %>
+                        <article class="tile is-child notification">
+                            <p class="subtitle"><%= insta.caption.text %></p>
+                            <figure class="image is-4by3">
+                                <img src="<%= insta.images.standard_resolution.url %>" />
+                            </figure>
+                        </article>
+                    <% }) %>
+                </div>
+                
+                <% var thirdInsta = [instagramData[4], instagramData[5]] %>
+                <div class="tile is-parent is-vertical">
+                    <% thirdInsta.forEach(function(insta){ %>
+                        <article class="tile is-child notification">
+                            <p class="subtitle"><%= insta.caption.text %></p>
+                            <figure class="image is-4by3">
+                                <img src="<%= insta.images.standard_resolution.url %>" />
+                            </figure>
+                        </article>
+                    <% }) %>
+                </div>                
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer.ejs %>
