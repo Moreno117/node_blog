@@ -1,7 +1,10 @@
-var express = require("express");
-    Post = require("../models/post");
+var express = require("express"),
+    Post = require("../models/post"),
+    cloudinary = require("cloudinary"),
+    multer = require("multer");
 
 const router = express.Router();
+const upload = multer({ dest: 'public/uploads' });
 
 router.get("/new", isLoggedIn, (req, res) => {
     res.render("blog/new.ejs");
@@ -17,21 +20,26 @@ router.get("/:id", (req, res) => {
     })
 })
 
-router.post("/", isLoggedIn, (req, res) => {
-    const { title, image, content } = req.body;
+router.post("/", isLoggedIn, upload.single('upload'), (req, res) => {
+    const { title, content } = req.body;
+    const { filename } = req.file;
     const resume = content.substring(0, 250);
-    const userPost = {
-        title: title,
-        image: image,
-        content: content,
-        resume: resume
-    }
-    Post.create(userPost, (err, newPost) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.redirect("/blog")
+    //upload image
+    cloudinary.uploader.upload(`public/uploads/${filename}`, (result) => {
+        const imagePath = result.url;
+        const userPost = {
+            title: title,
+            image: imagePath,
+            content: content,
+            resume: resume
         }
+        Post.create(userPost, (err, newPost) => {
+            if (err) {
+                console.log(err);
+            } else {
+                res.redirect("/blog")
+            }
+        });
     });
 });
 
@@ -41,23 +49,43 @@ router.get("/:id/edit", isLoggedIn, (req,res) => {
     });
 });
 
-router.put("/:id", isLoggedIn, (req, res) => {
-    const { title, image, content } = req.body;
-    const resume = content.substring(0 ,250);
-    const userPostUpdated = {
-        title: title,
-        image: image,
-        content: content,
-        resume: resume
-    };
-    Post.findByIdAndUpdate(req.params.id, userPostUpdated, (error, postUpdated) => {
-        if(error){
-            console.log("There was an error ", error);
-            res.redirect("/blog");
-        } else {
-            res.redirect(`/post/${postUpdated._id}`);
-        }
-    });
+router.put("/:id", isLoggedIn, upload.single('imageUpdate'), (req, res) => {
+    const { title, content } = req.body;
+    const resume = content.substring(0 ,250);    
+    if(req.file !== undefined){
+        const { filename } = req.file;
+        cloudinary.uploader.upload(`public/uploads/${filename}`, (result) => {
+            const imagePath = result.url;
+            const userPostUpdated = {
+                title: title,
+                image: imagePath,
+                content: content,
+                resume: resume
+            };
+            Post.findByIdAndUpdate(req.params.id, userPostUpdated, (error, postUpdated) => {
+                if(error){
+                    console.log("There was an error ", error);
+                    res.redirect("/blog");
+                } else {
+                    res.redirect(`/post/${postUpdated._id}`);
+                }
+            });
+        });
+    } else {
+        const userPostUpdated = {
+            title: title,
+            content: content,
+            resume: resume
+        };
+        Post.findByIdAndUpdate(req.params.id, userPostUpdated, (error, postUpdated) => {
+            if(error){
+                console.log("There was an error ", error);
+                res.redirect("/blog");
+            } else {
+                res.redirect(`/post/${postUpdated._id}`);
+            }
+        });
+    }
 });
 
 router.delete("/:id", isLoggedIn, (req,res) => {

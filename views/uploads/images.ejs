@@ -1,0 +1,9 @@
+<% include ../partials/header.ejs %>
+
+<form method="POST" enctype="multipart/form-data" action="/upload">    
+    <input type="text" name="imageName">    
+    <input type="file" name="upload">
+    <input type="submit" value="Upload">
+</form>
+
+<% include ../partials/footer.ejs %>
