@@ -65,19 +65,6 @@ app.get('/blog', (req, res) => {
     });
 });
 
-
-// app.get('/upload', (req,res) => {
-//     res.render('uploads/images.ejs')
-// })
-
-// app.post('/upload', upload.single('upload'), (req,res) => {
-//     const { filename } = req.file;
-//     cloudinary.uploader.upload(`public/uploads/${filename}`, function(result){
-//         console.log('cloud Result --->', result);
-//     })    
-//     res.redirect('/');
-// });
-
 app.listen(process.env.PORT || 3000, process.env.IP, () => {
     console.log('App listen on port 3000');
 });
