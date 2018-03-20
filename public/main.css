@@ -20,3 +20,31 @@
 .navbar-logo-modified{
     font-size: 140%;
 }
+
+#footer-modified-copy{
+    font-size: 68%;
+}
+
+.tabs:not(:last-child){
+    margin-bottom: 0px;
+}
+
+.social-icon-footer{
+    margin: 0px 10px;
+    padding: 5px 0px;
+    background: #E1E0E2;
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+.social-icon-footer:hover{
+    background: #717171;
+}
+
+.social-icon-footer a{
+    border:none;
+}
+
+.social-icon-footer a:hover{
+    color: #fff;
+}
