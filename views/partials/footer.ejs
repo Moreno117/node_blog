@@ -31,8 +31,9 @@
                 
                 window.onload = () => {
                     if(window.location.pathname === '/'){
-                        typeWriter();
-                        console.log('pu', window.location.pathname)                
+                        setTimeout(()=> {
+                            typeWriter();                                        
+                        }, 1000);
                     }
                 }
         </script>
