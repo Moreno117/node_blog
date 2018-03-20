@@ -12,3 +12,11 @@
 .form-delete-modified{
     display: inline
 }
+
+.header-logo-last-name{
+    margin-left: 5px;
+}
+
+.navbar-logo-modified{
+    font-size: 140%;
+}
