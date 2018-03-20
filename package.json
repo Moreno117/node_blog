@@ -6,7 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node -r dotenv/config index.js",
-    "start_development": "nodemon -r dotenv/config index.js"
+    "start_development": "nodemon -r dotenv/config index.js",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,css,json,md}": ["prettier --write", "git add"]
   },
   "author": "Carlos Moreno",
   "license": "ISC",
@@ -27,6 +31,8 @@
     "passport-local-mongoose": "^5.0.0"
   },
   "devDependencies": {
-    "nodemon": "^1.17.1"
+    "eslint": "^4.19.0",
+    "nodemon": "^1.17.1",
+    "prettier": "1.11.1"
   }
 }
