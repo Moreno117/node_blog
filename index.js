@@ -58,22 +58,47 @@ app.use("/post", postRoutes);
 app.use("/social", socialRoutes);
 
 app.get("/blog", (req, res) => {
-  Post.paginate({}, { page: 2, limit: 3 }, (err, posts) => {
+  Post.paginate({}, { page: 1, limit: 3 }, (err, posts) => {
     if (err) {
       console.log(err);
     } else {
-      res.render("blog/blog.ejs", { posts: posts.docs });
+      const meta = {
+        total: posts.total,
+        limit: posts.limit,
+        page: posts.page,
+        pages: posts.pages,
+        nextPage: 1
+      };
+      res.render("blog/blog.ejs", { posts: posts.docs, meta: meta });
     }
   });
 });
 
-app.get("/page", (req, res) => {
-  Post.paginate({}, { page: 2, limit: 3 }, (err, post) => {
+app.get("/lastPost", (req, res) => {
+  var { page, total } = req.query;
+  var nextPage;
+
+  if (Number(page) === Number(total)) {
+    nextPage = 1;
+  } else if (Number(page) >= 1 && Number(page) < Number(total)) {
+    nextPage = Number(page) + 1;
+  }
+
+  Post.paginate({}, { page: nextPage, limit: 3 }, (err, posts) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(post);
-      res.send("ok");
+      const meta = {
+        total: posts.total,
+        limit: posts.limit,
+        page: posts.page,
+        pages: posts.pages,
+        nextPage: nextPage
+      };
+      res.json({
+        meta: meta,
+        posts: posts.docs
+      });
     }
   });
 });

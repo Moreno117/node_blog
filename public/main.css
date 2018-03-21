@@ -92,3 +92,13 @@
 #hero-body-blog {
   padding-top: 10px;
 }
+
+.footer-container-action {
+  text-align: center;
+  width: 50%;
+  font-size: 25px;
+}
+
+#icon-action-footer {
+  cursor: pointer;
+}
