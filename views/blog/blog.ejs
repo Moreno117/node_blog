@@ -20,7 +20,7 @@
             .done(function(res){
                 console.log('ajax res --', res.posts);
                 var newContent = res.posts.map(function(post){
-                    return ("<p>Pup</p>")
+                    return ('<p>pup</p>')
                 })
                 articles.replaceWith(newContent);
             })
@@ -46,41 +46,13 @@
     <div class="column right-side is-half-desktop is-full-mobile">       
         <section class="hero is-fullheight is-default is-bold">
             <div class="hero-body" id="hero-body-blog">
-                <div class="container">
-        
-                <% posts.forEach(function(post){ %>
+                <div class="container">        
                 
-                    <div class="column is-full-desktop">
-                        <h1 class="blog-timestamp">
-                        2 days ago
-                        </h1>
-                        <h1 class="title is-5">
-                            <%= post.title %>
-                            <% if(currentUser){ %>
-                                <a href="/post/<%= post._id %>/edit" class="button action-buttons-modified">
-                                    <span class="icon is-small">
-                                        <i class="fa fa-pencil"></i>
-                                    </span>
-                                </a>
-                                <form class="form-delete-modified" action="/post/<%= post._id %>?_method=DELETE" method="POST">
-                                    <button class="button action-buttons-modified">
-                                        <span class="icon is-small">
-                                            <i class="fa fa-trash"></i>
-                                        </span>
-                                    </button> 
-                                </form>                               
-                            <% } %>
-                        </h1>
-
-                        <h2 class="blog-summary">
-                        <%= post.resume %>
-                        </h2>
-                        <a href="/post/<%= post._id %>">Read more...</a>
-                    </div>
-                        
+                <% posts.forEach(function(post){ %>
+                    <% include ../partials/articles/list.ejs %>                        
                 <% }) %>
-                </div>
 
+                </div>
             </div>
         </section>
         <div class="hero-foot">
