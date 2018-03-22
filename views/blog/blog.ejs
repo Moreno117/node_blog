@@ -1,33 +1,13 @@
 <%include ../partials/header.ejs%>
 
 <% var total = meta.pages %>
-<% var next = meta.nextPage %>
+<% var actualPage = meta.page %>
 
 <script>
     $(document).ready(function(){
         var granTotal = <%= total %>
-        var nextPage = <%= next %>
-        var articles = $("#hero-body-blog > .container");
-        $("#icon-action-footer").on("click", function(){
-            $.ajax({
-                method: 'GET',
-                url: '/lastPost',
-                data: {
-                    page: nextPage,
-                    total: granTotal
-                }
-            })
-            .done(function(res){
-                console.log('ajax res --', res.posts);
-                var newContent = res.posts.map(function(post){
-                    return ('<p>pup</p>')
-                })
-                articles.replaceWith(newContent);
-            })
-            .fail(function(err){                
-                console.log('ajax err', err);
-            })
-        });
+        var nextPage = <%= actualPage + 1 %>
+        var articles = $("#hero-body-blog  > .container ");  
     });
 </script>
 
@@ -49,7 +29,32 @@
                 <div class="container">        
                 
                 <% posts.forEach(function(post){ %>
-                    <% include ../partials/articles/list.ejs %>                        
+                    <div class="column is-full-desktop">
+                        <h1 class="blog-timestamp">
+                        2 days ago
+                        </h1>
+                        <h1 class="title is-5">
+                            <%= post.title %>
+                            <% if(currentUser){ %>
+                                <a href="/post/<%= post._id %>/edit" class="button action-buttons-modified">
+                                    <span class="icon is-small">
+                                        <i class="fa fa-pencil"></i>
+                                    </span>
+                                </a>
+                                <form class="form-delete-modified" action="/post/<%= post._id %>?_method=DELETE" method="POST">
+                                    <button class="button action-buttons-modified">
+                                        <span class="icon is-small">
+                                            <i class="fa fa-trash"></i>
+                                        </span>
+                                    </button> 
+                                </form>                               
+                            <% } %>
+                        </h1>
+                        <h2 class="blog-summary">
+                        <%= post.resume %>
+                        </h2>
+                        <a href="/post/<%= post._id %>">Read more...</a>
+                    </div>
                 <% }) %>
 
                 </div>

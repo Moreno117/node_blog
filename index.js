@@ -74,35 +74,6 @@ app.get("/blog", (req, res) => {
   });
 });
 
-app.get("/lastPost", (req, res) => {
-  var { page, total } = req.query;
-  var nextPage;
-
-  if (Number(page) === Number(total)) {
-    nextPage = 1;
-  } else if (Number(page) >= 1 && Number(page) < Number(total)) {
-    nextPage = Number(page) + 1;
-  }
-
-  Post.paginate({}, { page: nextPage, limit: 3 }, (err, posts) => {
-    if (err) {
-      console.log(err);
-    } else {
-      const meta = {
-        total: posts.total,
-        limit: posts.limit,
-        page: posts.page,
-        pages: posts.pages,
-        nextPage: nextPage
-      };
-      res.json({
-        meta: meta,
-        posts: posts.docs
-      });
-    }
-  });
-});
-
 app.listen(process.env.PORT || 3000, process.env.IP, () => {
   console.log("App listen on port 3000");
 });
