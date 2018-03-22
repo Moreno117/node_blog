@@ -58,16 +58,13 @@ app.use("/post", postRoutes);
 app.use("/social", socialRoutes);
 
 app.get("/blog", (req, res) => {
-  Post.paginate({}, { page: 1, limit: 3 }, (err, posts) => {
+  Post.paginate({}, { page: 1, limit: 30 }, (err, posts) => {
     if (err) {
       console.log(err);
     } else {
       const meta = {
-        total: posts.total,
-        limit: posts.limit,
-        page: posts.page,
         pages: posts.pages,
-        nextPage: 1
+        total: posts.total
       };
       res.render("blog/blog.ejs", { posts: posts.docs, meta: meta });
     }

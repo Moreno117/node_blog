@@ -1,12 +1,10 @@
 <%include ../partials/header.ejs%>
 
 <% var total = meta.pages %>
-<% var actualPage = meta.page %>
 
 <script>
     $(document).ready(function(){
         var granTotal = <%= total %>
-        var nextPage = <%= actualPage + 1 %>
         var articles = $("#hero-body-blog  > .container ");  
     });
 </script>
